@@ -1,0 +1,154 @@
+<div class="d-flex ">
+<div class="d-flex ps-2">
+    <h3 class="text-success fw-bold">
+      <a href="index.html" class="text-success text-decoration-none">GoFound</a>
+    </h3>
+  </div>
+<div class="container mt-1">
+    <!-- Top Right: GoFound Header with Link to Home -->
+    
+  
+    <!-- Profile Card -->
+    <div class="card p-4 pb-3">
+      <!-- Profile Header: Photo, Name, and Buttons in One Line -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <!-- Left Side: Photo and Name -->
+        <div class="d-flex align-items-center">
+          <img
+            src="path-to-profile-image.jpg"
+            alt="Profile Picture"
+            class="rounded-circle me-3"
+            width="80"
+            height="80"
+          />
+          <h4 class="mb-0">Alexa Rawles</h4>
+        </div>
+  
+        <!-- Right Side: Buttons -->
+        <div>
+          <button class="btn btn-primary me-2">Edit</button>
+          <button class="btn btn-success">Add Project</button>
+        </div>
+      </div>
+  
+      <!-- Profile Form -->
+      <form>
+        <!-- Row 1: Name Fields -->
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <label for="firstName" class="form-label">First Name</label>
+            <input
+              type="text"
+              id="firstName"
+              class="form-control"
+              placeholder="Your First Name"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input
+              type="text"
+              id="lastName"
+              class="form-control"
+              placeholder="Your Last Name"
+            />
+          </div>
+        </div>
+  
+        <!-- Row 2: Password and Address -->
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              class="form-control"
+              placeholder="Your Password"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="address" class="form-label">Address</label>
+            <input
+              type="text"
+              id="address"
+              class="form-control"
+              placeholder="Your Address"
+            />
+          </div>
+        </div>
+  
+        <!-- Row 3: Phone Number and Email -->
+        <div class="row mb-2">
+          <div class="col-md-6">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input
+              type="text"
+              id="phoneNumber"
+              class="form-control"
+              placeholder="Your Phone Number"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Your Email"
+            />
+          </div>
+        </div>
+  
+        <!-- Row 4: Projects Dropdown -->
+        <div class="mb-2">
+          <label for="projectTitle" class="form-label">Projects</label>
+          <select id="projectTitle" class="form-select">
+            <option selected>Project Title</option>
+            <!-- Add project options dynamically here -->
+          </select>
+        </div>
+  
+        <!-- Row 5: Project Details -->
+        <div class="row mb-2">
+          <div class="col-md-4">
+            <label for="projectTitleInput" class="form-label">Project Title</label>
+            <input
+              type="text"
+              id="projectTitleInput"
+              class="form-control"
+              placeholder="Project Title"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="releaseDate" class="form-label">Release Date</label>
+            <input
+              type="date"
+              id="releaseDate"
+              class="form-control"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="goals" class="form-label">Goals</label>
+            <input
+              type="text"
+              id="goals"
+              class="form-control"
+              placeholder="Goals"
+            />
+          </div>
+        </div>
+  
+        <!-- Row 6: Description -->
+        <div class="mb-2">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            class="form-control"
+            placeholder="Description"
+            rows="3"
+          ></textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
