@@ -8,17 +8,18 @@ import { AdminprojectsComponent} from './adminprojects/adminprojects.component';
 import { AdminusersComponent } from './adminusers/adminusers.component';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { ProjectdetailsComponent } from './projectdetails/projectdetails.component';
+import { AuthGuard } from './garde/auth.guard';
 
 const routes: Routes = [
   {path:"home",component : HomeComponent},
   {path:"",component : HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'profile', component: UserprofileComponent },
+  { path: 'profile', component: UserprofileComponent , canActivate: [AuthGuard] },
   { path: 'adminuser', component: AdminusersComponent },
   { path: 'adminprj', component: AdminprojectsComponent },
-  { path: 'userd', component: UserdetailsComponent },
-  { path: 'projectd', component:  ProjectdetailsComponent},
+  { path: 'userd', component: UserdetailsComponent ,canActivate: [AuthGuard] },
+  { path: 'project/:id', component:  ProjectdetailsComponent , canActivate: [AuthGuard],},
 ];
 
 @NgModule({

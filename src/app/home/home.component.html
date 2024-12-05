@@ -1,81 +1,63 @@
-<header class="sticky-top bg-white shadow-sm py-3">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-      <h1 class="text-success fw-bold mb-0">GoFound</h1>
-      <!-- Centered Search Bar -->
-      <div class="mx-auto w-50">
-        <input 
-          type="text" 
-          class="form-control form-control-lg" 
-          placeholder="Search..."
-          [(ngModel)]="searchQuery"
-          (input)="searchProjects()"
-        >
-      </div>
-      <!-- Conditional Profile or Sign In Button -->
-      <div>
-        <button *ngIf="connect" class="btn btn-success" [routerLink]="'/profile'" >My Profile</button>
-        <button *ngIf="!connect" class="btn btn-outline-success" [routerLink]="'/login'">Log In</button>
-      </div>
-    </div>
-  </header>
-  
-  
   <!-- Main Content -->
   <div class="container-fluid px-4 py-4">
   
     <!-- Category Filters (Centered) -->
     <div class="d-flex justify-content-center mb-4 flex-wrap">
       <button 
-        class="btn btn-outline-secondary me-2 mb-2" 
-        *ngFor="let category of categories"
-        (click)="filterByCategory(category)"
-      >
-        {{ category }}
+        class="btn btn btn-outline-dark me-2 mb-2 fw-bold"
+        [class.text-white]="category==='all'"  [class.btn-dark]="category==='all'" 
+        (click)="getallproject()"> All...
+      </button>
+      <button 
+        class="btn btn-outline-dark me-2 mb-2 fw-bold"
+        *ngFor="let c of categories"
+        (click)="filterByCategory(c)"
+        [class.btn-dark]="c===category"
+        [class.text-white]="c===category"
+        >
+        {{ c | uppercase }}
       </button>
     </div>
   
     <!-- Sorting Filters (Aligned to Right) -->
     <div class="d-flex justify-content-end mb-4">
       <button 
-        class="btn btn-outline-primary me-2" 
-        *ngFor="let sort of sortOptions"
-        (click)="sortProjects(sort)"
+        class="btn btn-outline-success me-2 fw-bold" 
+        *ngFor="let s of sortOptions ; let i=index"
+        (click)="sortProjects(i)"
+        [class.btn-success]="i===sort"
+        [class.text-white]="i===sort"
       >
-        {{ sort }}
+        {{ s }}
       </button>
     </div>
   
     <!-- Projects Section -->
     <div class="row g-4">
       <div class="col-lg-4" *ngFor="let project of projects">
-        <div class="card shadow-sm h-100">
+        <div class="card h-100 project-card">
           <div class="row g-0">
             <div class="col-4">
-              <img [src]="project.image" class="img-fluid rounded-start" [alt]="project.title">
+              <img [src]="imageService.getimageProject(project.image?.[0]?.image)" class="img-fluid rounded-start project-image" [alt]="project.title" style="height: 100%;">
             </div>
             <div class="col-8">
               <div class="card-body">
-                <h5 class="card-title fw-bold">{{ project.title }}</h5>
-                <p class="card-text text-muted">{{ project.details }}</p>
-                <p class="card-text fw-bold">${{ project.amountRaised | number }}</p>
-                <p class="text-success fw-bold">Goal: ${{ project.goal | number }}</p>
+                <h5 class="card-title fw-bold">{{ project.title }} ({{ project.category }})</h5>
+                <p class="card-text text-muted">{{ project.description }}</p>
+                <p class="card-text fw-bold">${{ project.raised_amount | number }}</p>
+                <p class="text-success fw-bold">Goal: ${{ project.goal_amount | number }}</p>
+                <div class="d-flex justify-content-end">
+                  <a routerLink="/project/{{ project.id }}" class="btn btn-outline-success fw-bold">View Project</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    
   
-    <!-- Pagination (Centered) -->
-    <nav aria-label="Page navigation" class="mt-4">
-      <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item disabled"><span class="page-link">...</span></li>
-        <li class="page-item"><a class="page-link" href="#">67</a></li>
-        <li class="page-item"><a class="page-link" href="#">68</a></li>
-      </ul>
-    </nav>
+    
+    
   </div>
   

@@ -1,0 +1,92 @@
+/* Style global pour la carte de projet */
+.project-card {
+    border: 2px solid #ddd; /* Bordure fine */
+    border-radius: 8px; /* Bords arrondis */
+    overflow: hidden; /* Pour éviter que les images dépassent */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet de survol avec animation */
+  }
+  
+  .project-card:hover {
+    transform: translateY(-10px); /* Déplacer la carte vers le haut */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Ombre portée pour effet de survol */
+  }
+  
+  .project-image {
+    border-radius: 8px 0 0 8px; /* Arrondir les coins de l'image */
+    transition: transform 0.3s ease; /* Animation de l'image */
+  }
+  
+  .project-card:hover .project-image {
+    transform: scale(1.05); /* Agrandir l'image au survol */
+  }
+  
+  .card-body {
+    padding: 20px;
+    background-color: #f8f9fa; /* Fond clair */
+    transition: background-color 0.3s ease; /* Animation de couleur de fond */
+  }
+  
+  .project-card:hover .card-body {
+    background-color: #e9ecef; /* Changer de couleur au survol */
+  }
+  
+  .card-title {
+    color: #343a40; /* Titre sombre */
+    font-size: 1.2rem; /* Taille de police du titre */
+    transition: color 0.3s ease; /* Animation de la couleur */
+  }
+  
+  .project-card:hover .card-title {
+    color: #28a745; /* Changer la couleur du titre au survol */
+  }
+  
+  .card-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #6c757d;
+  }
+  
+  /* Animation du bouton */
+  .btn-outline-success {
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .project-card:hover .btn-outline-success {
+    background-color: #28a745; /* Vert lors du survol */
+    color: white; /* Texte blanc */
+  }
+  
+  .card-body p {
+    margin-bottom: 10px;
+  }
+  
+  .text-success {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  /* Animation pour les transitions de la grille */
+  .row.g-4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Effet de fade-in pour les éléments */
+  .project-card {
+    opacity: 0;
+    animation: fadeIn 0.6s forwards;
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

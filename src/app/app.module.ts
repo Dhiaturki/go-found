@@ -12,6 +12,8 @@ import { AdminusersComponent } from './adminusers/adminusers.component';
 import { ProjectdetailsComponent } from './projectdetails/projectdetails.component';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,14 @@ import { FormsModule } from '@angular/forms';
     AdminprojectsComponent,
     AdminusersComponent,
     ProjectdetailsComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    NavbarComponent
   ],
   imports: [
     FormsModule ,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

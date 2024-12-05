@@ -1,0 +1,74 @@
+<header class="sticky-top bg-white shadow-sm py-3">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <h1 class="text-success fw-bold mb-0" style="cursor: pointer;" routerLink="/">GoFound</h1>
+      <!-- Centered Search Bar -->
+      <div class="search-bar mx-auto w-50 position-relative">
+        <!-- Champ de recherche -->
+        <input 
+          type="text" 
+          class="form-control form-control-lg shadow-sm rounded-pill" 
+          placeholder="Search projects..." 
+          [(ngModel)]="search" 
+          (keyup)="searchProjects()" 
+          (focus)="showSuggestions = true" 
+          (blur)="hideSuggestionsAfterDelay()">
+        
+        <!-- Bouton de recherche -->
+        <button class="btn search-btn" (click)="searchProjects()">
+          <i class="bi bi-search"></i>
+        </button>
+        
+        <!-- Liste des suggestions -->
+        <ul *ngIf="showSuggestions" class="suggestion-list shadow-sm">
+            <!-- Affichage des suggestions si elles existent -->
+            <li *ngFor="let s of suggestions" (click)="selectSuggestion(s)">
+              <div class="d-flex gap-3">
+                <!-- Affichage de l'image du projet, en vérifiant si l'image existe -->
+                <img [src]="imageService.getimageProject(s.image)" alt="Project Image" width="40" height="40">
+                <div>
+                  {{ s.title }} ({{ s.category }})
+                </div>
+              </div>
+            </li>
+          
+            <hr>
+          
+            <!-- Affichage du message quand la recherche donne des résultats mais que la liste est vide -->
+            <li *ngIf=" search" class="text-center fw-bold">
+               Search for "{{ search }}"
+            </li>
+          </ul>
+          
+      </div>
+      
+      <!-- Conditional Profile or Sign In Button -->
+      <div>
+        <div *ngIf="userService.isAuthenticated()" class="dropdown">
+          <button 
+            class="btn p-0  dropdown-toggle" 
+            type="button" 
+            id="dropdownMenuButton" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false">
+            <img [src]="imageService.getimageUser(user.image)" width="40" height="40"  class=" rounded-circle" alt="">
+          </button>
+          
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <h5 class="text-center fw-bold">{{user.user.first_name}} {{user.user.last_name}}</h5>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" [routerLink]="'/profile'">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><div class="dropdown-item text-center fw-bold btn" (click)="logout()">Log out</div></li>
+          </ul>
+        </div>
+        
+        <button *ngIf="!userService.isAuthenticated()" class="btn btn-outline-success" [routerLink]="'/login'">
+          Log In
+        </button>
+        
+    </div>
+    </div>
+  </header>
+  

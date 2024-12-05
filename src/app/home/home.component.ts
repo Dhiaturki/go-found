@@ -1,86 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Project } from '../models/project.model';
+import { ProjectService } from '../services/project.service';
+import { UserService } from '../services/user.service';
+import { UserProfile } from '../models/user.model';
+import { Router } from '@angular/router';
+import { ImageService } from '../services/image.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+
+  projects:Project[]=[]
+  user !: UserProfile
+  category!:string
+  
+
   // Categories
-  categories: string[] = ['Food', 'Games', 'Art', 'Cars', 'Music', 'Fashion'];
-  searchQuery: string = '';
-  connect: boolean = true; // Set to true when the user is logged in
+  categories: string[] = ['food', 'games', 'art', 'cars', 'musique', 'fashion'];
+  search: string = '';
 
   // Sorting Options
   sortOptions: string[] = ['A-Z', 'Biggest', 'Goal'];
+  sort :number = 0;
 
-  // All Projects Data
-  allProjects = [
-    {
-      title: 'Restaurant Rapide',
-      image: 'assets/restaurant.jpg',
-      details: 'Details about the project',
-      amountRaised: 502480,
-      goal: 200000,
-      category: 'Food'
-    },
-    {
-      title: 'Brasserie',
-      image: 'assets/brasserie.jpg',
-      details: 'Details about the project',
-      amountRaised: 30050,
-      goal: 100000,
-      category: 'Food'
-    },
-    {
-      title: 'Internet Cafe',
-      image: 'assets/internet-cafe.jpg',
-      details: 'Details about the project',
-      amountRaised: 100210,
-      goal: 400000,
-      category: 'Games'
-    },
-    {
-      title: 'Bakery',
-      image: 'assets/bakery.jpg',
-      details: 'Details about the project',
-      amountRaised: 75320,
-      goal: 150000,
-      category: 'Art'
-    },
-    {
-      title: 'Fitness Center',
-      image: 'assets/fitness-center.jpg',
-      details: 'Details about the project',
-      amountRaised: 250890,
-      goal: 500000,
-      category: 'Fashion'
-    }
-  ];
+  constructor(private projectService:ProjectService , public userService : UserService , private route : Router , public imageService : ImageService){}
 
-  // Displayed Projects
-  projects = [...this.allProjects];
+  
 
   // Filter Projects by Category
   filterByCategory(category: string): void {
-    this.projects = category
-      ? this.allProjects.filter(project => project.category === category)
-      : [...this.allProjects];
+    if (this.category === category) {
+      this.getallproject()
+    } else {
+      this.category = category; // Définit la catégorie choisie
+    }
+    this.projectService.filterProjects(category , this.search).subscribe(
+      res=>this.projects=res,
+      error=>console.log(error.message)
+    )
   }
 
   // Sort Projects
-  sortProjects(sortOption: string): void {
+  sortProjects(sortOption: number): void {
+    this.sort=sortOption
     switch (sortOption) {
-      case 'A-Z':
+      case 0:
         this.projects.sort((a, b) => a.title.localeCompare(b.title));
         break;
-      case 'Biggest':
-        this.projects.sort((a, b) => b.amountRaised - a.amountRaised);
+      case 1:
+        this.projects.sort((a, b) => b.raised_amount - a.raised_amount);
         break;
-      case 'Goal':
+      case 2:
         this.projects.sort((a, b) => {
-          if (b.goal !== a.goal) {
-            return b.goal - a.goal; // Higher goal first
+          if (b.goal_amount !== a.goal_amount) {
+            return b.goal_amount - a.goal_amount; // Higher goal first
           }
           return a.title.localeCompare(b.title); // Fallback to alphabetical order
         });
@@ -92,10 +68,25 @@ export class HomeComponent {
 
   // Search Projects
   searchProjects(): void {
-    const searchText = this.searchQuery.trim().toLowerCase();
-    this.projects = this.allProjects.filter(project =>
-      project.title.toLowerCase().includes(searchText) ||
-      project.details.toLowerCase().includes(searchText)
-    );
+    if(this.search){
+      let c = this.category !=='all' ? this.category : '';
+      this.projectService.filterProjects(c , this.search).subscribe(
+        res=>this.projects=res,
+        error=>console.log(error.message)
+      )
+    }
+  }
+
+  getallproject(){
+    this.category='all'
+    this.search=''
+    this.projectService.getProjects().subscribe(
+      res=>this.projects=res,
+      error=>console.log(error.message)
+    )
+  }
+
+  ngOnInit(): void {
+      this.getallproject()
   }
 }
